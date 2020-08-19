@@ -8,6 +8,7 @@ import sys
 from PIL import Image
 from io import BytesIO
 from appscript import app, mactypes
+import shutil
 
 MIN_WIDTH = 2560
 MIN_HEIGHT = 1600
@@ -38,22 +39,22 @@ def downloadRandomWallpaper(interactive):
                 image = Image.open(BytesIO(r.content))
             except:
                 print("Error Opening File")
+                continue
             width, height = image.size
             if (width >= MIN_WIDTH and height >= MIN_HEIGHT):
                 with open(file_name[-1], "wb") as f:
                     f.write(r.content)
                 setWallpaper(file_name[-1])
-                downloadList.append(file_name[-1])
                 if (interactive):
                     choice = input(
                         "Any key to go to next wallpaper, S to save and exit: ")
                     if choice.lower() == "s":
-                        deleteWallpapers(downloadList)
+                        shutil.move(file_name[-1], "/Users/zachburns/Documents/Wallpapers/")
                         return
+                    else:
+                       deleteWallpaper(file_name[-1]) 
                 else:
-                    deleteWallpapers(downloadList)
                     return
-    deleteWallpapers(downloadList)
 
 
 def setWallpaper(file_name):
@@ -62,12 +63,11 @@ def setWallpaper(file_name):
     return
 
 
-def deleteWallpapers(wallpapers):
-    for wallpaper in wallpapers:
-        try:
-            os.remove(wallpaper)
-        except:
-            print("Could not delete file")
+def deleteWallpaper(wallpaper):
+    try:
+        os.remove(wallpaper)
+    except:
+        print("Could not delete file")
 
 
 if __name__ == "__main__":
