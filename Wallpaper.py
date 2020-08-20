@@ -1,6 +1,5 @@
 import praw
 import requests
-import re
 import os
 import time
 import random
@@ -9,28 +8,30 @@ from PIL import Image
 from io import BytesIO
 from appscript import app, mactypes
 import shutil
+from dotenv import load_dotenv
+
+load_dotenv()
 
 MIN_WIDTH = 2560
 MIN_HEIGHT = 1600
-CLIENT_ID = ""
-CLIENT_SECRET = ""
+CLIENT_ID = os.getenv("CLIENT_ID")
+CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 
 reddit = praw.Reddit(client_id=CLIENT_ID, client_secret=CLIENT_SECRET,
                      user_agent="Reddit Background Generator")
 
-subreddits = ["Wallpapers", "EarthPorn", "SpacePorn"]
+subreddits = ["Wallpapers"]
 fileExtensions = ["jpg", "png"]
 timeFilters = ["hour", "day", "week", "month", "year", "all"]
 randomWallpaper = random.choice(subreddits)
-downloadList = []
+randomTimeFilter = random.choice(timeFilters)
 
 
 def downloadRandomWallpaper(interactive):
-    post = list(reddit.subreddit("Wallpapers").top(time_filter=random.choice(timeFilters)))
-    print(len(post))
+    post = list(reddit.subreddit(randomWallpaper).top(
+        time_filter=randomTimeFilter))
     randomNumber = random.sample(range(0, len(post)), len(post))
     for rand in randomNumber:
-        print(rand)
         url = (post[rand].url)
         file_name = url.split("/")
         if file_name[-1].split(".")[-1] in fileExtensions:
@@ -49,11 +50,13 @@ def downloadRandomWallpaper(interactive):
                     choice = input(
                         "Any key to go to next wallpaper, S to save and exit: ")
                     if choice.lower() == "s":
-                        shutil.move(file_name[-1], "/Users/zachburns/Documents/Wallpapers/")
+                        shutil.move(
+                            file_name[-1], "/Users/zachburns/Documents/Wallpapers/")
                         return
                     else:
-                       deleteWallpaper(file_name[-1]) 
+                        deleteWallpaper(file_name[-1])
                 else:
+                    deleteWallpaper(file_name[-1])
                     return
 
 
