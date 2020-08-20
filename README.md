@@ -16,7 +16,7 @@ Clone the repository by typing
 git clone "https://github.com/ZachJBurns/AnotherWallpaperGenerator"
 ```
 ### Prerequisites
-
+Mac OS Catalina or higher
 Head over to https://www.reddit.com/prefs/apps and create an app to receive your API information to pull posts from Reddit.
 
 ### Installing
