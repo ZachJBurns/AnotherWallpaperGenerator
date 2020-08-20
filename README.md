@@ -8,7 +8,7 @@
 
 ## About <a name = "about"></a>
 
-Another Simple wallpaper generator where you can pull images from your favorite subreddits.
+Another Simple wallpaper generator for MacOS where you can pull images from your favorite subreddits.
 ## Getting Started <a name = "getting_started"></a>
 
 Clone the repository by typing
@@ -17,6 +17,7 @@ git clone "https://github.com/ZachJBurns/AnotherWallpaperGenerator"
 ```
 ### Prerequisites
 Mac OS Catalina or higher
+
 Head over to https://www.reddit.com/prefs/apps and create an app to receive your API information to pull posts from Reddit.
 
 ### Installing
