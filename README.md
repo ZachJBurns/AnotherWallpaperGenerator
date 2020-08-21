@@ -43,9 +43,8 @@ vi .env
 
 CLIENT_ID = "your client id"
 CLIENT_SECRET = "your client secret key"
+SAVE_DIR = "directory to where you would like to save wallpaper"
 ```
-
-End with an example of getting some data out of the system or using it for a little demo.
 
 ## Usage <a name = "usage"></a>
 
@@ -58,6 +57,6 @@ You can also run it in interactive mode by typing:
 ```
 python Wallpaper.py -i
 ```
-When running in interactive mode, you can keep generating wallpapers until you find the right one.
+When running in interactive mode, you can keep generating wallpapers until you find the right one. Unlike running in random generation, interactive mode will save the wallpaper you pick to a defined directory.
 
 You can add or remove information to the subreddits and fileExtensions variables to restrict or increase the scope for file types and subreddits to pull from.

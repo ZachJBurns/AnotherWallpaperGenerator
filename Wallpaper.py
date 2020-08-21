@@ -16,6 +16,7 @@ MIN_WIDTH = 2560
 MIN_HEIGHT = 1600
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+SAVE_DIR = os.getenv("SAVE_DIR") #Ex./Users/zach/Documents/Wallpapers/
 
 reddit = praw.Reddit(client_id=CLIENT_ID, client_secret=CLIENT_SECRET,
                      user_agent="Reddit Background Generator")
@@ -39,7 +40,7 @@ def downloadRandomWallpaper(interactive):
             try:
                 image = Image.open(BytesIO(r.content))
             except:
-                print("Error Opening File")
+                print("Error Opening Image. Skipping")
                 continue
             width, height = image.size
             if (width >= MIN_WIDTH and height >= MIN_HEIGHT):
@@ -51,14 +52,14 @@ def downloadRandomWallpaper(interactive):
                         "Any key to go to next wallpaper, S to save and exit: ")
                     if choice.lower() == "s":
                         shutil.move(
-                            file_name[-1], "/Users/zachburns/Documents/Wallpapers/")
+                            file_name[-1], SAVE_DIR)
                         return
                     else:
                         deleteWallpaper(file_name[-1])
                 else:
                     deleteWallpaper(file_name[-1])
                     return
-
+    print("Out of images, exiting program")
 
 def setWallpaper(file_name):
     app('Finder').desktop_picture.set(mactypes.File(file_name))
